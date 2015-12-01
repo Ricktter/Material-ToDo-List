@@ -11,7 +11,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.dell.materialtodolist.ToDoListActivity"
     tools:showIn="@layout/activity_to_do_list"
-    android:theme="@style/Theme.MyMaterial">
+    android:theme="@style/Theme.ToDoListTheme">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,6 +30,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/itemsListView"/>
     </LinearLayout>
+
+
     <ImageButton
         android:id="@+id/add_item_button"
         android:layout_width="@dimen/add_button_diameter"
@@ -42,5 +44,15 @@
         android:src="@android:drawable/ic_input_add"
         android:background="@drawable/oval"
         tools:ignore="RtlCompat"/>
+
+    <ImageButton
+        android:id="@+id/addItemButton"
+        android:layout_width="@dimen/add_button_diameter"
+        android:layout_height="@dimen/add_button_diameter"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="@dimen/add_button_margin"
+        android:layout_marginEnd="@dimen/add_button_margin"
+        android:layout_marginRight="@dimen/add_button_margin"
+        android:src="@android:drawable/ic_input_add" />
 </FrameLayout>
 

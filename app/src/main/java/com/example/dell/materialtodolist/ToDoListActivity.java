@@ -8,8 +8,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class ToDoListActivity extends AppCompatActivity {
+    private EditText item;
+    private ImageButton add;
+    private ListView dynamicListView;
+    private ArrayList<String> list;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +36,51 @@ public class ToDoListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+
+        //Get references to UI widgets
+        item = (EditText) findViewById(R.id.itemEditText);
+        add = (ImageButton) findViewById(R.id.add_item_button);
+        dynamicListView = (ListView) findViewById(R.id.itemsListView);
+
+        //initialize the list and add item
+        list = new ArrayList<String>();
+        list.add("Android ATC");
+
+        //initialize the adapter to the listView
+        adapter = new ArrayAdapter<String>(ToDoListActivity.this,
+                android.R.layout.simple_list_item_1, list);
+
+        //setting the adapter to the listView
+        dynamicListView.setAdapter(adapter);
+
+        //add item to the listView on Click button (add)
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String todoItem = item.getText().toString();
+                if (todoItem.length() > 0) {
+                    //add editText Value to the list
+                    list.add(todoItem);
+                    //refresh the listView
+                    adapter.notifyDataSetChanged();
+                    //clear the editText for the new item
+                    item.setText("");
+                }
+            }
+        });
+
+        //delete item on the long click on the item
+        dynamicListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //remove the item from list
+                list.remove(position);
+
+                //aply changes on the adapter to refresh the listView
+                adapter.notifyDataSetChanged();
+                return true;
             }
         });
     }
